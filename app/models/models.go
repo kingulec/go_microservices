@@ -11,3 +11,9 @@ type Payload struct {
 	Timestamp string `json:"timestamp"`
 	Tests     []Test `json:"tests"`
 }
+
+type Response struct {
+	Received bool    `json:"received"`
+	BuildId  string  `json:"build_id"`
+	PassRate float64 `json:"pass_rate"`
+}
