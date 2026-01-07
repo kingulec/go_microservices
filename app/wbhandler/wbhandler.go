@@ -2,11 +2,12 @@ package wbhandler
 
 import (
 	"app/app/models"
+	app "app/app/validate"
 	"encoding/json"
-	"fmt"
-	"net/http"
-	"app/app/validate"
 	"errors"
+	"fmt"
+	"math"
+	"net/http"
 )
 
 func WebHookHandler(wr http.ResponseWriter, req *http.Request) {
@@ -26,14 +27,14 @@ func WebHookHandler(wr http.ResponseWriter, req *http.Request) {
 	}
 	err = app.ValidateJsonData(&payload)
 	if err != nil {
-		http.Error(wr, "Invalid payload: " + err.Error(), http.StatusBadRequest)
+		http.Error(wr, "Invalid payload: "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	tests := payload.Tests
 	pass_rate, err := CountPassRate(tests)
 	if err != nil {
-		http.Error(wr, "Error in tests: " + err.Error(), http.StatusBadRequest)
+		http.Error(wr, "Error in tests: "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -71,6 +72,6 @@ func CountPassRate(test_data []models.Test) (float64, error) {
 		}
 	}
 	pass_rate := float64(passed) / float64(total_number) * 100
-	fmt.Printf("Pass Rate: %.2f%%\n", pass_rate)
+	pass_rate = math.Round(pass_rate*100) / 100
 	return pass_rate, nil
 }
