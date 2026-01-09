@@ -46,6 +46,7 @@ func WebHookHandler(wr http.ResponseWriter, req *http.Request) {
 		PassRate: pass_rate,
 	}
 	wr.Header().Set("Content-Type", "application/json")
+	wr.WriteHeader(http.StatusOK)
 
 	err2 := json.NewEncoder(wr).Encode(response)
 
