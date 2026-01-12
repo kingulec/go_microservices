@@ -1,6 +1,0 @@
-service:
-  host: localhost
-  port: 8443
-  tls:
-    cert_file: certs/tls.crt
-    key_file: certs/tls.key
