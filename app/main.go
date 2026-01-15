@@ -7,6 +7,14 @@ import (
 	"os"
 )
 
+func fileExists(path string) bool {
+	_, err := os.Stat(path)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return true
+}
+
 func main() {
 
 	certPath := os.Getenv("TLS_CERT_PATH")
@@ -16,6 +24,11 @@ func main() {
 	}
 	if keyPath == "" {
 		keyPath = "./certs/tls.key"
+	}
+
+
+	if !fileExists(certPath) || !fileExists(keyPath) {
+		log.Fatal("TLS certificate or key file does not exist.")
 	}
 
 	host := os.Getenv("SERVICE_HOST")
