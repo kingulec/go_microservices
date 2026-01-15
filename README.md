@@ -25,7 +25,7 @@ go mod tidy
 
 ## Documentation
 
-- [Go Webhook Service](docs/go_service)
+- [Go Webhook Service](docs/go_service.md)
 - [Testing](docs/testing.md)
 - [Docker](docs/docker.md)
 - [Kubernetes](docs/kubernetes.md)
