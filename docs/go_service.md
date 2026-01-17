@@ -1,4 +1,4 @@
-# Go Webhook Service
+# Go Webhook Service - STAGE 1
 Source code: app/
 
 This is a HTTPS webhook server written in Go.

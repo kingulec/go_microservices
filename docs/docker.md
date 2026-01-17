@@ -1,5 +1,5 @@
 
-# Docker
+# Docker - STAGE 2
 The Docker image is built using a multi-stage build to minimize the final image size.
 Only the compiled Go binary is included in the runtime image.
 ### TLS Certificates
@@ -10,7 +10,7 @@ They are mounted at runtime using a read-only volume and provided to the applica
 
 Build a Docker image for the webhook server using the following command: 
 ```bash
-docker build -t webhook-server:latest .
+docker build -t kingulec/webhook-server:latest .
 ```
 -t webhook-server → assigns the name webhook-server
 . uses the current directory
@@ -36,3 +36,17 @@ https://localhost:8443
 
 You can run tests to verify that the server is working correctly:
 - [Testing](testing.md)
+
+## Push docker image to dockerhub
+Push docker image to dockerhub
+ex.
+```bash
+docker login
+docker images
+docker push kingulec/webhook-server:latest
+```
+ex.
+Pull the image from dockerhub
+```bash
+docker pull kingulec/webhook-server:latest
+```
