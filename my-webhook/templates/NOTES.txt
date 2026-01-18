@@ -1,0 +1,23 @@
+Webhook Server is deployed!
+
+TEST app:
+kubectl port-forward svc/my-webhook-service 8443:443
+
+'cd tests'
+python3 -m pytest test_service.py
+
+or 
+'cd tests'
+'bash service_tests.sh  https://localhost:8443/webhook ../test_data/test_data01.json'
+
+To check the pods:
+kubectl get pods -l app=my-webhook
+
+TLS secret created:
+kubectl get secret my-webhook-tls
+
+Chack logs:
+kubectl logs my-webhook-deployment-name
+
+Check service:
+kubectl get svc my-webhook-service

@@ -1,0 +1,23 @@
+replicaCount: 2
+
+image:
+  repository: kingulec/webhook-server
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 443
+  targetPort: 8443
+
+tls:
+  cert: "<base64-encoded-cert-string>"
+  key: "<base64-encoded-key-string>"
+
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
