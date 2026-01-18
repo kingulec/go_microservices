@@ -31,10 +31,6 @@ func main() {
 		log.Fatal("TLS certificate or key file does not exist.")
 	}
 
-	host := os.Getenv("SERVICE_HOST")
-	if host == "" {
-		host = "0.0.0.0"
-	}
 	port := "8443"
 	if len(os.Args) > 1 && os.Args[1] != "" {
 		port = os.Args[1]
@@ -43,7 +39,7 @@ func main() {
 	http.HandleFunc("/webhook", wbhandler.WebHookHandler)
 	log.Println("Starting HTTPS server on port " + port)
 	//ListenAndServe starts an HTTPS server with a given address and handler.
-	err2 := http.ListenAndServeTLS(host+":"+port, certPath, keyPath, nil)
+	err2 := http.ListenAndServeTLS(":"+port, certPath, keyPath, nil)
 	if err2 != nil {
 		log.Fatal("Failed to start server:", err2)
 	}
