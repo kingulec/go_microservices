@@ -1,0 +1,67 @@
+Service.yaml
+
+type: ClusterIP - the default, enables comunication between pods.
+
+
+for local testing 
+kubectl port-forward svc/webhook-service 8443:8443
+
+----------------------------
+Secret.yaml
+# Zakodowanie certyfikatu
+base64 -w 0 tls.crt > tls.crt.b64
+base64 -w 0 tls.key > tls.key.b64
+
+type: kubernetes.io/tls #for tls certificates
+data:
+  tls.crt: LSdgfdgd...
+  tls.key: LSfdfdf...
+---
+
+type: Opaque - default- for different types of data
+ex.
+data:
+  username: dfgfgf=        # base64 for "admin"
+  password: dgdgdg=    # base64 for "password"
+
+---
+type: kubernetes.io/dockerconfigjson
+login data for docker
+
+ex.
+data:
+  .dockerconfigjson: <base64 encoded config.json>
+---
+type:kubernetes.io/basic-auth
+Basic HTTP authentication
+username, password
+---
+type:kubernetes.io/ssh-auth
+for ssh keys
+ssh-privatekey
+known-hosts
+
+---------------------------------------
+Deployment.yaml
+spec:
+  replicas: 2 #How many pods should be working at the same time
+
+Mount volume
+    volumeMounts:
+    - name: tls-certs
+      mountPath: ./certs
+      readOnly: true
+env: Virtual env variables for the container
+
+Mount the secret (secret.yaml name =webhook-server-tls)
+ volumes:
+      - name: tls-certs
+        secret:
+          secretName: webhook-server-tls
+----------------------------------------------
+Ingres
+
+example ingres with secrets
+https://maxanuj.medium.com/how-to-configure-ingress-tls-ssl-certificates-in-kubernetes-cedafb29dd48
+
+

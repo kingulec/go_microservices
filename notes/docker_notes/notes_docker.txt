@@ -1,0 +1,53 @@
+# build docker image
+docker build -t webhook-server .
+
+# not standard docker file name 
+docker build -f basic.dockerfile -t webhook-server .
+
+# show images
+docker images
+
+# run conteiner
+docker run -p 8443:8443 webhook-server
+
+# show running containers
+docker ps 
+
+# show stopped containers 
+docker ps -a 
+
+# remove containers
+docker rm <container id>
+docker rmi <container name>
+
+#stop container
+docker stop
+
+# starting container with env vars 
+docker run -p 8443:8443 \
+  -v $(pwd)/certs:/certs:ro \
+  -e TLS_CERT_PATH=/certs/tls.crt \
+  -e TLS_KEY_PATH=/certs/tls.key \
+  webhook-server
+
+
+docker exec -it  3ca215b1b76b  /bin/sh
+# ls
+webhook-server
+# ls
+webhook-server
+# echo $TLS_KEY_PATH
+/certs/tls.key
+# ls /certs
+tls.crt  tls.key
+
+# Push docker image to dockerhub
+docker login
+docker images
+docker push kingulec/webhook-server:latest
+
+# pull the image from dockerhub
+docker pull kingulec/webhook-server:latest
+
+
+

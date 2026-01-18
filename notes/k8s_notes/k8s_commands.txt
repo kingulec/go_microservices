@@ -1,0 +1,76 @@
+k3s installation:
+
+
+kubectl apply -f k8s/secret.yaml
+secret/webhook-server-tls created
+kubectl describe secret webhook-server-tls
+
+OR
+kubectl create secret tls webhook-server-tls \
+  --cert=tls.crt \
+  --key=tls.key
+
+#clean up 
+kubectl delete deployment webhook-deployment 
+kubectl delete service webhook-service 
+kubectl delete secret webhook-server-tls 
+kubectl delete pod -l app=webhook-app 
+
+--------
+kubectl get deployments
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+webhook-deployment      2/2     2            2           5h58m
+READY 2/2 means that is working 
+-------
+kubectl scale deployment webhook-deployment --replicas=2
+
+kubectl get pods
+NAME                                     READY   STATUS    RESTARTS   AGE
+webhook-deployment-       1/1     Running   0          6h
+webhook-deployment       1/1     Running   0          6h
+
+Two pods are working. 
+-----
+
+Check the pod
+kubectl describe pod nazwa-podu
+
+---
+check secrets
+kubectl get secret webhook-server-tls -o yaml
+---
+check service
+kubectl get svc webhook-service
+------
+go into the container
+kubectl exec -it nazwa-poda -- /bin/sh
+ /bin/sh
+# ls
+webhook-server
+# printenv
+TLS_CERT_PATH=/certs/tls.crt
+
+# ls -l /certs/
+total 0
+tls.crt -> ..data/tls.crt
+tls.key -> ..data/tls.key
+
+# ps aux
+USER         PID %CPU %MEM   TIME COMMAND
+root           1  0.0  0.1   0:00 ./webhook-server 8443
+
+# lsb_release -a
+/bin/sh: 21: lsb_release: not found
+# go version
+/bin/sh: 22: go: not found #ok (multi stage build)
+
+# delete claster
+k3d cluster delete my-cluster
+---
+kubectl port-forward svc/webhook-service 8443:443
+
+----------------------------------------------
+k3d cluster create my-cluster \
+  --agents 1 \
+  -p "8080:80@loadbalancer" \
+  -p "8443:443@loadbalancer"
