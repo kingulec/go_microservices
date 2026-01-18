@@ -45,7 +45,10 @@ export SERVICE_HOST="0.0.0.0"
 # Local development
 
 ## Starting server:
-
+Build app
+```bash
+go build ./main.go
+```
 Run the command.
 
 ```bash

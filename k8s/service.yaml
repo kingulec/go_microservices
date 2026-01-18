@@ -7,6 +7,6 @@ spec:
     app: webhook-app
   ports:
     - protocol: TCP
-      port: 8443
-      targetPort: 8443
+      port: 443 # port in claster
+      targetPort: 8443 # port in pod
   type: ClusterIP
