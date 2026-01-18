@@ -25,6 +25,22 @@ kubectl apply -f k8s/secret.yaml
 kubectl apply -f k8s/service.yaml
 kubectl apply -f k8s/deployment.yaml
 ```
+Check
+```bash
+kubectl get pods
+```
+
+# Testing 
+Run the following 
+```bash
+kubectl port-forward svc/webhook-service 8443:443
+```
+and in differnet terminal run tests
+
+```bash
+export WEBHOOK_URL=https://localhost:8443/webhook
+python3 -m pytest test_service.py
+```
 
 For details go to 
 
