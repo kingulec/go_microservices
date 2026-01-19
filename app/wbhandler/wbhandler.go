@@ -2,7 +2,7 @@ package wbhandler
 
 import (
 	"app/app/models"
-	app "app/app/validate"
+	"app/app/validate"
 	"encoding/json"
 	"errors"
 	"fmt"
