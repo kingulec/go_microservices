@@ -2,8 +2,7 @@ FROM golang:1.21 AS builder
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
-COPY /app ./app
-COPY tests ./tests
+COPY ./app ./app
 
 RUN go build -o webhook-server ./app
 
