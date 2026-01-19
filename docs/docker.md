@@ -16,19 +16,20 @@ docker build -t kingulec/webhook-server:latest .
 . uses the current directory
 
 ## Run the container
+The webhook server reads TLS certificate and private key paths from environment variables.
 Run the following command to run the container.
 ```bash
 docker run -p 8443:8443 \
   -v $(pwd)/certs:/certs:ro \
   -e TLS_CERT_PATH=/certs/tls.crt \
   -e TLS_KEY_PATH=/certs/tls.key \
-  webhook-server
+  kingulec/webhook-server
 ```
-* -p 8443:8443 → maps port 8443 in the container to port 8443 on your host machine.
-* -v $(pwd)/certs:/certs:ro → mounts the certs directory from your host into the container as read-only
-* -e TLS_CERT_PATH=/certs/tls.crt and -e TLS_KEY_PATH=/certs/tls.key → provide the paths to the TLS certificate and private key for HTTPS.
+* -p 8443:8443 - maps port 8443 in the container to port 8443 on your host machine.
+* -v $(pwd)/certs:/certs:ro - mounts the certs directory from your host into the container as read-only
+* -e TLS_CERT_PATH=/certs/tls.crt and -e TLS_KEY_PATH=/certs/tls.key - provides the paths to the TLS certificate and private key for HTTPS.
 
-* webhook-server → the name of the Docker image to run.
+* repo/webhook-server → the name of the Docker image to run.
 
 After starting the container, the HTTPS server will be available at:
 

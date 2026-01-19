@@ -3,7 +3,7 @@ Source code: app/
 
 This is a HTTPS webhook server written in Go.
 
-* HTTPS server Listens on port **8443**
+* Server Listens on port **8443**
 * Provides a single endpoint: POST /webhook
 * Accepts payloads in **JSON format** with the following structure:
 
@@ -35,17 +35,16 @@ This is a HTTPS webhook server written in Go.
 - TLS certificate and key for HTTPS
 
 - Setting environment variables for server
+
 ```bash
 export TLS_CERT_PATH=/path/to/tls.crt
 
 export TLS_KEY_PATH=/path/to/tls.key
-
-export SERVICE_HOST="0.0.0.0"
 ```
 # Local development
 
 ## Starting server:
-Build app
+Build the app
 ```bash
 go build ./main.go
 ```
@@ -53,11 +52,11 @@ Run the command.
 
 ```bash
 cd app
-go run main.go 
+./main
 ```
 Port can be easily changed by simply adding parameter.
 
-**ex:** ```go run main.go [port]```
+**ex:** ```./main [port]```
 
 ## Generate self-signed certificates 
 Project contains a script for self-signed certificates generation. The script can be found in scripts directory.

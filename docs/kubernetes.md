@@ -18,7 +18,7 @@ data:
   tls.key: Lddd4...=
   ...
 ```
-You can also change the name to service.yaml.
+You can also change the name to secret.yaml.
 
 ```bash
 kubectl apply -f k8s/secret.yaml
@@ -31,7 +31,7 @@ kubectl get pods
 ```
 
 # Testing 
-Run the following 
+Forward the service port to your local machine:
 ```bash
 kubectl port-forward svc/webhook-service 8443:443
 ```
